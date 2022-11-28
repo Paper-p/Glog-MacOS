@@ -35,10 +35,27 @@ final class MainVC: NSViewController {
         $0.alignment = .center
     }
     
+    private let signInButton = NSButton().then{
+        $0.wantsLayer = true
+        $0.layer?.cornerRadius = 10
+        $0.attributedTitle = NSAttributedString(string: "로그인", attributes:[ NSAttributedString.Key.foregroundColor : NSColor.black.cgColor])
+        $0.font = NSFont(name: "Helvetica-Bold", size: 14)
+        $0.bezelStyle = .shadowlessSquare
+        $0.layer?.backgroundColor = PaperPAsset.Colors.paperStartColor.color.cgColor
+    }
+    
+    private let signUpButton = NSButton().then{
+        $0.wantsLayer = true
+        $0.attributedTitle = NSAttributedString(string: "회원이 아니시라고요?", attributes:[ NSAttributedString.Key.foregroundColor : PaperPAsset.Colors.paperStartColor.color.cgColor])
+        $0.bezelStyle = .texturedSquare
+        $0.layer?.backgroundColor = PaperPAsset.Colors.paperBackgroundColor.color.cgColor
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addView()
         setLayout()
+        view.layer?.backgroundColor = PaperPAsset.Colors.paperBackgroundColor.color.cgColor
     }
     
     override func loadView() {
@@ -51,6 +68,8 @@ final class MainVC: NSViewController {
         view.addSubview(blurMainView)
         view.addSubview(mainLogoImageView)
         view.addSubview(mainLabel)
+        view.addSubview(signInButton)
+        view.addSubview(signUpButton)
     }
     
     func setLayout(){
@@ -74,6 +93,16 @@ final class MainVC: NSViewController {
             make.bottom.equalTo(mainLogoImageView).offset(10)
             make.width.equalTo(128)
             make.height.equalTo(42)
+        }
+        signInButton.snp.makeConstraints { make in
+            make.centerX.equalTo(blurMainView)
+            make.top.equalTo(blurMainView.snp.bottom).offset(150)
+            make.width.equalTo(300)
+            make.height.equalTo(40)
+        }
+        signUpButton.snp.makeConstraints { make in
+            make.centerX.equalTo(signInButton)
+            make.top.equalTo(signInButton.snp.bottom).offset(16)
         }
     }
 }
