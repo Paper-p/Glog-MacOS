@@ -4,7 +4,7 @@ import Then
 import SnapKit
 import Alamofire
 
-final class MainVC: NSViewController {
+final class IntroVC: NSViewController {
     
     private let backGroundImageView = NSImageView(image: NSImage(named: "Paper_Background")!).then{
         $0.wantsLayer = true

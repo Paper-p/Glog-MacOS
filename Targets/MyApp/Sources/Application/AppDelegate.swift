@@ -40,7 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                           defer: false)
         window.center()
         window.minSize = NSSize(width: 800, height: 610)
-        window.contentViewController = MainVC()
+        window.contentViewController = IntroVC()
         window.makeKeyAndOrderFront(nil)
         window?.titlebarAppearsTransparent = true
     }
