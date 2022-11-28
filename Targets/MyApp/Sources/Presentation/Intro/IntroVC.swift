@@ -42,6 +42,7 @@ final class IntroVC: NSViewController {
         $0.font = NSFont(name: "Helvetica-Bold", size: 14)
         $0.bezelStyle = .shadowlessSquare
         $0.layer?.backgroundColor = PaperPAsset.Colors.paperStartColor.color.cgColor
+        $0.action = Selector(("SignInButtonDidTap"))
     }
     
     private let signUpButton = NSButton().then{
@@ -108,5 +109,11 @@ final class IntroVC: NSViewController {
             make.centerX.equalTo(signInButton)
             make.top.equalTo(signInButton.snp.bottom).offset(16)
         }
+    }
+    
+    //MARK: Action
+    @objc func SignInButtonDidTap(){
+        let vc = SignInVC()
+        self.view.window?.contentViewController = vc
     }
 }

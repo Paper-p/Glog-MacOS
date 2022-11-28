@@ -28,7 +28,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         
         if let statusButton = statusItem.button{
-            statusButton.image = NSImage(systemSymbolName: "message.fill", accessibilityDescription: "message")
+            statusButton.image = NSImage(named: "Paper_StatusLogo")
+            statusButton.image?.isTemplate = true
         }
         statusItem.menu = menu
         
