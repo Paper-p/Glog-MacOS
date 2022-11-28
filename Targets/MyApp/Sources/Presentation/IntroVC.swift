@@ -64,12 +64,16 @@ final class IntroVC: NSViewController {
     }
     
     func addView(){
-        view.addSubview(backGroundImageView)
-        view.addSubview(blurMainView)
-        view.addSubview(mainLogoImageView)
-        view.addSubview(mainLabel)
-        view.addSubview(signInButton)
-        view.addSubview(signUpButton)
+        [backGroundImageView,
+         blurMainView,
+         mainLogoImageView,
+         mainLabel,
+         signInButton,
+         signUpButton
+        ]
+            .forEach {
+            view.addSubview($0)
+        }
     }
     
     func setLayout(){
