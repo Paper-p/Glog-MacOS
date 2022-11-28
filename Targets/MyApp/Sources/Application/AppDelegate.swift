@@ -39,6 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                           backing: .buffered,
                           defer: false)
         window.center()
+        window.minSize = NSSize(width: 800, height: 610)
         window.contentViewController = MainVC()
         window.makeKeyAndOrderFront(nil)
         window?.titlebarAppearsTransparent = true
