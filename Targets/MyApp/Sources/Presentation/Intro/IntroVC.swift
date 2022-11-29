@@ -50,6 +50,7 @@ final class IntroVC: NSViewController {
         $0.attributedTitle = NSAttributedString(string: "회원이 아니시라고요?", attributes:[ NSAttributedString.Key.foregroundColor : PaperPAsset.Colors.paperStartColor.color.cgColor])
         $0.bezelStyle = .texturedSquare
         $0.layer?.backgroundColor = PaperPAsset.Colors.paperBackgroundColor.color.cgColor
+        $0.action = Selector(("SignUpButtonDidTap"))
     }
     
     override func viewDidLoad() {
@@ -114,6 +115,11 @@ final class IntroVC: NSViewController {
     //MARK: Action
     @objc func SignInButtonDidTap(){
         let vc = SignInVC()
+        self.view.window?.contentViewController = vc
+    }
+    
+    @objc func SignUpButtonDidTap(){
+        let vc = InsertIdVC()
         self.view.window?.contentViewController = vc
     }
 }
