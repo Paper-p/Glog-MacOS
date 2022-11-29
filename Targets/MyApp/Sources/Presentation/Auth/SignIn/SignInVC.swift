@@ -4,7 +4,7 @@ import Then
 import SnapKit
 import Alamofire
 
-final class SignInVC: NSViewController {
+final class SignInVC: NSViewController{
     
     private let mainLogoImageView = NSImageView(image: NSImage(named: "Paper_MainLogo")!).then{
         $0.wantsLayer = true
@@ -27,12 +27,57 @@ final class SignInVC: NSViewController {
         $0.layer?.backgroundColor = NSColor.white.cgColor
     }
     
+    private let idTextField = NSTextField().then{
+        $0.wantsLayer = true
+        $0.placeholderString = "아이디"
+        $0.placeholderAttributedString = NSAttributedString(string: "아이디", attributes: [
+            NSAttributedString.Key.font: NSFont.systemFont(ofSize: 20.0, weight: .medium), NSAttributedString.Key.foregroundColor : NSColor.gray.cgColor
+        ])
+        $0.layer?.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
+    
+        $0.isBezeled = true
+        $0.bezelStyle = .squareBezel
+        $0.isBordered = false
+        
+        $0.textColor = NSColor.white
+        $0.isEditable = true
+        $0.isSelectable = true
+        
+        $0.allowsEditingTextAttributes = true
+        $0.lineBreakMode = .byTruncatingTail
+        $0.font = NSFont(name: "Helvetica", size: 20)
+        $0.focusRingType = .none
+        $0.usesSingleLineMode = false
+    }
+    
+    private let pwdTextField = NSSecureTextField().then{
+        $0.wantsLayer = true
+        $0.placeholderString = "비밀번호"
+        $0.placeholderAttributedString = NSAttributedString(string: "비밀번호", attributes: [
+            NSAttributedString.Key.font: NSFont.systemFont(ofSize: 20.0, weight: .medium), NSAttributedString.Key.foregroundColor : NSColor.gray.cgColor
+        ])
+        $0.layer?.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
+    
+        $0.isBezeled = true
+        $0.bezelStyle = .squareBezel
+        $0.isBordered = false
+        
+        $0.textColor = NSColor.white
+        $0.isEditable = true
+        $0.isSelectable = true
+        
+        $0.allowsEditingTextAttributes = true
+        $0.lineBreakMode = .byTruncatingTail
+        $0.font = NSFont(name: "Helvetica", size: 20)
+        $0.focusRingType = .none
+        $0.usesSingleLineMode = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addView()
         setLayout()
         view.layer?.backgroundColor = PaperPAsset.Colors.paperBackgroundColor.color.cgColor
-        view.window?.title = "Asdf"
     }
     
     override func loadView() {
@@ -43,7 +88,9 @@ final class SignInVC: NSViewController {
     func addView(){
         [mainLogoImageView,
          welcomeTextView,
-         backButton
+         backButton,
+         idTextField,
+         pwdTextField
         ]
             .forEach {
             view.addSubview($0)
@@ -67,6 +114,17 @@ final class SignInVC: NSViewController {
             make.top.equalTo(10)
             make.left.equalTo(10)
             make.size.equalTo(20)
+        }
+        idTextField.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().inset(15)
+            make.height.equalTo(35)
+            make.top.equalTo(welcomeTextView.snp.bottom).offset(20)
+        }
+        pwdTextField.snp.makeConstraints { make in
+            make.centerX.equalTo(idTextField)
+            make.size.equalTo(idTextField)
+            make.top.equalTo(idTextField.snp.bottom).offset(15)
         }
     }
     @objc func backButtonDidTap(){

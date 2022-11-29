@@ -31,7 +31,7 @@ final class IntroVC: NSViewController {
         $0.string = "여기에서 너의 생각을 남들에게 이야기해봐"
         $0.backgroundColor = .clear
         $0.isSelectable = false
-        $0.font = NSFont(name: "Helvetica-Bold", size: 14)
+        $0.font = NSFont(name: "Helvetica", size: 14)
         $0.alignment = .center
     }
     
