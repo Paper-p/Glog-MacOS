@@ -105,7 +105,6 @@ final class InsertNickNameVC: NSViewController{
     }
     
     @objc func NextButtonDidTap(){
-        let vc = InsertPwdVC()
-        self.view.window?.contentViewController = vc
+        
     }
 }

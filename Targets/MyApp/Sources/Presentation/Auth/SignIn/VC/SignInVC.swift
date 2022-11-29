@@ -90,6 +90,8 @@ final class SignInVC: NSViewController{
         $0.layer?.backgroundColor = PaperPAsset.Colors.paperBackgroundColor.color.cgColor
     }
     
+    private let viewModel = SignInVM()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addView()
@@ -165,5 +167,6 @@ final class SignInVC: NSViewController{
         ///입력된 ID와 비밀번호에 따라 인증 요청을 보냅니다
         ///성공 : 게시글 리스트 페이지로 이동시킵니다 -> main
         ///실패 : 실패 메시지를 표시합니다
+        viewModel.fetchData(id: idTextField.stringValue, password: pwdTextField.stringValue)
     }
 }
