@@ -4,7 +4,7 @@ import Then
 import SnapKit
 import Alamofire
 
-final class InsertIdVC: NSViewController{
+final class InsertPwdVC: NSViewController{
     
     private let mainLogoImageView = NSImageView(image: NSImage(named: "Paper_Smile")!).then{
         $0.wantsLayer = true
@@ -18,10 +18,33 @@ final class InsertIdVC: NSViewController{
         $0.layer?.backgroundColor = NSColor.white.cgColor
     }
     
-    private let idTextField = NSTextField().then{
+    private let pwdTextField = NSSecureTextField().then{
         $0.wantsLayer = true
-        $0.placeholderString = "사용할 아이디 입력"
-        $0.placeholderAttributedString = NSAttributedString(string: "사용할 아이디 입력", attributes: [
+        $0.placeholderString = "사용할 비밀번호 입력"
+        $0.placeholderAttributedString = NSAttributedString(string: "사용할 비밀번호 입력", attributes: [
+            NSAttributedString.Key.font: NSFont.systemFont(ofSize: 20.0, weight: .medium), NSAttributedString.Key.foregroundColor : NSColor.gray.cgColor
+        ])
+        $0.layer?.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
+    
+        $0.isBezeled = true
+        $0.bezelStyle = .squareBezel
+        $0.isBordered = false
+        
+        $0.textColor = NSColor.white
+        $0.isEditable = true
+        $0.isSelectable = true
+        
+        $0.allowsEditingTextAttributes = true
+        $0.lineBreakMode = .byTruncatingTail
+        $0.font = NSFont(name: "Helvetica", size: 20)
+        $0.focusRingType = .none
+        $0.usesSingleLineMode = false
+    }
+    
+    private let rePwdTextField = NSSecureTextField().then{
+        $0.wantsLayer = true
+        $0.placeholderString = "사용할 비밀번호 한번더 입력"
+        $0.placeholderAttributedString = NSAttributedString(string: "사용할 비밀번호 한번더 입력", attributes: [
             NSAttributedString.Key.font: NSFont.systemFont(ofSize: 20.0, weight: .medium), NSAttributedString.Key.foregroundColor : NSColor.gray.cgColor
         ])
         $0.layer?.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
@@ -48,7 +71,15 @@ final class InsertIdVC: NSViewController{
         $0.font = NSFont(name: "Helvetica-Bold", size: 14)
         $0.bezelStyle = .shadowlessSquare
         $0.layer?.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
-        $0.action = Selector(("NextButtonDidTap"))
+        $0.action = Selector(("nextButtonDidTap"))
+    }
+    
+    private let includeTextView = NSTextView().then{
+        $0.string = "비밀번호는 8자리 이상 및 기호를 포함해주세요."
+        $0.font = NSFont(name: "Helvetica", size: 14)
+        $0.textColor = NSColor.white
+        $0.isEditable = false
+        $0.isSelectable = false
     }
     
     override func viewDidLoad() {
@@ -66,8 +97,10 @@ final class InsertIdVC: NSViewController{
     func addView(){
         [mainLogoImageView,
          backButton,
-         idTextField,
-         nextButton
+         pwdTextField,
+         rePwdTextField,
+         nextButton,
+         includeTextView
         ]
             .forEach {
             view.addSubview($0)
@@ -81,31 +114,43 @@ final class InsertIdVC: NSViewController{
             make.width.equalTo(170)
             make.height.equalTo(100)
         }
+        
         backButton.snp.makeConstraints { make in
             make.top.equalTo(10)
             make.left.equalTo(10)
             make.size.equalTo(20)
         }
-        idTextField.snp.makeConstraints { make in
+        pwdTextField.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().inset(15)
             make.height.equalTo(35)
             make.top.equalTo(mainLogoImageView.snp.bottom).offset(20)
         }
+        rePwdTextField.snp.makeConstraints { make in
+            make.centerX.equalTo(pwdTextField)
+            make.size.equalTo(pwdTextField)
+            make.top.equalTo(pwdTextField.snp.bottom).offset(15)
+        }
         nextButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(idTextField.snp.bottom).offset(30)
+            make.top.equalTo(rePwdTextField.snp.bottom).offset(30)
             make.width.equalToSuperview().inset(15)
             make.height.equalTo(45)
         }
+        includeTextView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(nextButton.snp.bottom).offset(17)
+            make.width.equalTo(280)
+            make.height.equalTo(17)
+        }
     }
     @objc func backButtonDidTap(){
-        let vc = IntroVC()
+        let vc = InsertIdVC()
         self.view.window?.contentViewController = vc
     }
     
-    @objc func NextButtonDidTap(){
-        let vc = InsertPwdVC()
+    @objc func nextButtonDidTap(){
+        let vc = InsertNickNameVC()
         self.view.window?.contentViewController = vc
     }
 }

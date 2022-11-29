@@ -4,7 +4,7 @@ import Then
 import SnapKit
 import Alamofire
 
-final class InsertIdVC: NSViewController{
+final class InsertNickNameVC: NSViewController{
     
     private let mainLogoImageView = NSImageView(image: NSImage(named: "Paper_Smile")!).then{
         $0.wantsLayer = true
@@ -20,8 +20,8 @@ final class InsertIdVC: NSViewController{
     
     private let idTextField = NSTextField().then{
         $0.wantsLayer = true
-        $0.placeholderString = "사용할 아이디 입력"
-        $0.placeholderAttributedString = NSAttributedString(string: "사용할 아이디 입력", attributes: [
+        $0.placeholderString = "사용할 닉네임 입력"
+        $0.placeholderAttributedString = NSAttributedString(string: "사용할 닉네임 입력", attributes: [
             NSAttributedString.Key.font: NSFont.systemFont(ofSize: 20.0, weight: .medium), NSAttributedString.Key.foregroundColor : NSColor.gray.cgColor
         ])
         $0.layer?.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
@@ -41,10 +41,10 @@ final class InsertIdVC: NSViewController{
         $0.usesSingleLineMode = false
     }
     
-    private let nextButton = NSButton().then{
+    private let doneButton = NSButton().then{
         $0.wantsLayer = true
         $0.layer?.cornerRadius = 10
-        $0.attributedTitle = NSAttributedString(string: "다음", attributes:[ NSAttributedString.Key.foregroundColor : NSColor.black.cgColor])
+        $0.attributedTitle = NSAttributedString(string: "완료", attributes:[ NSAttributedString.Key.foregroundColor : NSColor.black.cgColor])
         $0.font = NSFont(name: "Helvetica-Bold", size: 14)
         $0.bezelStyle = .shadowlessSquare
         $0.layer?.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
@@ -67,7 +67,7 @@ final class InsertIdVC: NSViewController{
         [mainLogoImageView,
          backButton,
          idTextField,
-         nextButton
+         doneButton
         ]
             .forEach {
             view.addSubview($0)
@@ -92,7 +92,7 @@ final class InsertIdVC: NSViewController{
             make.height.equalTo(35)
             make.top.equalTo(mainLogoImageView.snp.bottom).offset(20)
         }
-        nextButton.snp.makeConstraints { make in
+        doneButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(idTextField.snp.bottom).offset(30)
             make.width.equalToSuperview().inset(15)
