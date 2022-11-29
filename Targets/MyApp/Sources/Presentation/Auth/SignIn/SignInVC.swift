@@ -73,6 +73,23 @@ final class SignInVC: NSViewController{
         $0.usesSingleLineMode = false
     }
     
+    private let signInButton = NSButton().then{
+        $0.wantsLayer = true
+        $0.layer?.cornerRadius = 10
+        $0.attributedTitle = NSAttributedString(string: "로그인", attributes:[ NSAttributedString.Key.foregroundColor : NSColor.black.cgColor])
+        $0.font = NSFont(name: "Helvetica-Bold", size: 14)
+        $0.bezelStyle = .shadowlessSquare
+        $0.layer?.backgroundColor = PaperPAsset.Colors.paperStartColor.color.cgColor
+        $0.action = Selector(("SignInButtonDidTap"))
+    }
+    
+    private let forgotPwdButton = NSButton().then{
+        $0.wantsLayer = true
+        $0.attributedTitle = NSAttributedString(string: "비밀번호를 잊어 버리셨나요?", attributes:[ NSAttributedString.Key.foregroundColor : PaperPAsset.Colors.paperStartColor.color.cgColor])
+        $0.bezelStyle = .texturedSquare
+        $0.layer?.backgroundColor = PaperPAsset.Colors.paperBackgroundColor.color.cgColor
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addView()
@@ -90,7 +107,9 @@ final class SignInVC: NSViewController{
          welcomeTextView,
          backButton,
          idTextField,
-         pwdTextField
+         pwdTextField,
+         signInButton,
+         forgotPwdButton
         ]
             .forEach {
             view.addSubview($0)
@@ -126,9 +145,25 @@ final class SignInVC: NSViewController{
             make.size.equalTo(idTextField)
             make.top.equalTo(idTextField.snp.bottom).offset(15)
         }
+        signInButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(pwdTextField.snp.bottom).offset(30)
+            make.width.equalToSuperview().inset(15)
+            make.height.equalTo(45)
+        }
+        forgotPwdButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(signInButton.snp.bottom).offset(15)
+        }
     }
     @objc func backButtonDidTap(){
         let vc = IntroVC()
         self.view.window?.contentViewController = vc
+    }
+    
+    @objc func SignInButtonDidTap(){
+        ///입력된 ID와 비밀번호에 따라 인증 요청을 보냅니다
+        ///성공 : 게시글 리스트 페이지로 이동시킵니다 -> main
+        ///실패 : 실패 메시지를 표시합니다
     }
 }
