@@ -10,13 +10,15 @@ let project = Project.executable(
     packages: [
         .Then,
         .SnapKit,
-        .Alamofire
+        .Alamofire,
+        .Moya
     ],
     product: .app,
     deploymentTarget: .macOS(targetVersion: "12.3"),
     dependencies: [
         .SPM.Then,
         .SPM.SnapKit,
-        .SPM.Alamofire
+        .SPM.Alamofire,
+        .SPM.Moya
     ]
 )

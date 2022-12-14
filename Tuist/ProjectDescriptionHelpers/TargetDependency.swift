@@ -8,6 +8,7 @@ public extension TargetDependency.SPM{
     static let SnapKit = TargetDependency.package(product: "SnapKit")
     static let Then = TargetDependency.package(product: "Then")
     static let Alamofire = TargetDependency.package(product: "Alamofire")
+    static let Moya = TargetDependency.package(product: "Moya")
 }
 
 public extension Package {
@@ -22,5 +23,9 @@ public extension Package {
     static let Alamofire = Package.remote(
         url: "https://github.com/Alamofire/Alamofire",
         requirement: .upToNextMajor(from: "5.6.2"))
+    
+    static let Moya = Package.remote(
+        url: "https://github.com/Moya/Moya",
+        requirement: .upToNextMajor(from: "15.0.0"))
 }
 
