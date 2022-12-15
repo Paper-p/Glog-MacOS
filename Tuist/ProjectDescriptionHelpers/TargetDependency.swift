@@ -9,6 +9,7 @@ public extension TargetDependency.SPM{
     static let Then = TargetDependency.package(product: "Then")
     static let Alamofire = TargetDependency.package(product: "Alamofire")
     static let Moya = TargetDependency.package(product: "Moya")
+    static let RxSwift = TargetDependency.package(product: "RxSwift")
 }
 
 public extension Package {
@@ -27,5 +28,10 @@ public extension Package {
     static let Moya = Package.remote(
         url: "https://github.com/Moya/Moya",
         requirement: .upToNextMajor(from: "15.0.0"))
+    
+    static let RxSwift = Package.remote(
+        url: "https://github.com/ReactiveX/RxSwift",
+        requirement: .upToNextMajor(from: "6.5.0"))
+
 }
 

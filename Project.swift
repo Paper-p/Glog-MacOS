@@ -11,7 +11,8 @@ let project = Project.executable(
         .Then,
         .SnapKit,
         .Alamofire,
-        .Moya
+        .Moya,
+        .RxSwift
     ],
     product: .app,
     deploymentTarget: .macOS(targetVersion: "12.3"),
@@ -19,6 +20,7 @@ let project = Project.executable(
         .SPM.Then,
         .SPM.SnapKit,
         .SPM.Alamofire,
-        .SPM.Moya
+        .SPM.Moya,
+        .SPM.RxSwift
     ]
 )
