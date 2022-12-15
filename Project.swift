@@ -20,7 +20,7 @@ let project = Project.executable(
         .SPM.Then,
         .SPM.SnapKit,
         .SPM.Alamofire,
-        .SPM.Moya,
+        .SPM.RxMoya,
         .SPM.RxSwift
     ]
 )
