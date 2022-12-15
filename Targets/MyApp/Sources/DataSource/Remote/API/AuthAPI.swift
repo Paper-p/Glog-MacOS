@@ -4,6 +4,7 @@ import Foundation
 
 enum AuthAPI{
     case login(idToken: String)
+    case refresh
 }
 
 extension AuthAPI: GlogAPI {
@@ -14,12 +15,16 @@ extension AuthAPI: GlogAPI {
         switch self {
         case .login:
             return "/auth"
+        case .refresh:
+            return ""
         }
     }
     var method: Moya.Method {
         switch self {
         case .login:
             return .post
+        case .refresh:
+            return .patch
         }
     }
     var task: Task{
@@ -28,6 +33,8 @@ extension AuthAPI: GlogAPI {
             return .requestParameters(parameters: [
                 "idToken":req
             ], encoding: JSONEncoding.default)
+        case let .refresh:
+            return .requestPlain
         }
     }
     var jwtTokenType: JWTTokenType?{
@@ -43,6 +50,12 @@ extension AuthAPI: GlogAPI {
                 400: .invalidToken,
                 403: .notGlogUser,
                 404: .notExistUser
+            ]
+        case .refresh:
+            return [
+                400: .invalidToken,
+                401: .unuthorized,
+                404: .notFoundUser
             ]
         }
     }
