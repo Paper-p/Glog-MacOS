@@ -39,7 +39,11 @@ extension AuthAPI: GlogAPI {
     var errorMapper: [Int : GlogError]?{
         switch self {
         case .login:
-            return 
+            return [
+                400: .invalidToken,
+                403: .notGlogUser,
+                404: .notExistUser
+            ]
         }
     }
 }
