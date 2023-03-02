@@ -1,5 +1,5 @@
 import RxFlow
-import AppKit
+import UIKit
 import RxSwift
 import RxCocoa
 
@@ -15,7 +15,7 @@ struct AppStepper: Stepper {
 }
 
 final class AppFlow: Flow {
-    private var rootViewController = NSViewController()
+    private var rootViewController = UINavigationController()
     
     var root: Presentable {
         return self.rootViewController
@@ -37,14 +37,14 @@ final class AppFlow: Flow {
     }
     
     private func coordinateToSignIn() -> FlowContributors {
-        let flow = LoginFlow()
+        let flow = SignInFlow()
         Flows.use(flow, when: .created) { (root) in
-            self.rootViewController = root as! NSViewController
+            self.rootViewController = root as! UINavigationController
         }
         return .one(
             flowContributor: .contribute(
                 withNextPresentable: flow,
-                withNextStepper: OneStepper(withSingleStep: SCStep.loginIsRequired)
+                withNextStepper: OneStepper(withSingleStep: PaperStep.signInIsRequired)
         ))
     }
     

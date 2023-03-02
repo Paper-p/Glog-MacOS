@@ -1,61 +1,26 @@
-import Cocoa
-import AppKit
-import Then
+import UIKit
 
-class AppDelegate: NSObject, NSApplicationDelegate {
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    private var window: NSWindow!
-    
-    private var statusItem: NSStatusItem!
-    
-    private let menu = NSMenu().then{
-        $0.title = ""
-    }
-    
-    private let openMenuItem = NSMenuItem().then{
-        $0.title = "열기"
-        $0.tag = 1
-        $0.action = #selector(openMenuItemDidTap)
-    }
-    
-    private let exitMenuItem = NSMenuItem().then{
-        $0.title = "종료"
-        $0.tag = 4
-        $0.action = #selector(quitMenuItemDidTap)
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        return true
     }
 
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        
-        if let statusButton = statusItem.button{
-            statusButton.image = NSImage(named: "Paper_StatusLogo")
-            statusButton.image?.isTemplate = true
-        }
-        statusItem.menu = menu
-        
-        [openMenuItem, .separator(), exitMenuItem].forEach(menu.addItem(_:))
-        
-        window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 480, height: 270),
-                          styleMask: [.miniaturizable, .closable, .resizable, .titled],
-                          backing: .buffered,
-                          defer: false)
-        window.center()
-        window.minSize = NSSize(width: 800, height: 610)
-        window.contentViewController = IntroVC()
-        window.makeKeyAndOrderFront(nil)
-        window?.titlebarAppearsTransparent = true
+    // MARK: UISceneSession Lifecycle
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        // Called when a new scene session is being created.
+        // Use this method to select a configuration to create the new scene with.
+        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-    
-    @objc func openMenuItemDidTap(){
-        NSApp.activate(ignoringOtherApps: true)
+
+    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
+        // Called when the user discards a scene session.
+        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
+        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-    
-    @objc func quitMenuItemDidTap(){
-        NSApplication.shared.terminate(false)
-    }
-    
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
+
 
 }
