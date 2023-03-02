@@ -1,11 +1,11 @@
 
 import Foundation
 
-struct SignInModel: Codable{
-    let data: SignInResponse
+struct SignUpModel: Codable{
+    let data: SignUpResponse
 }
 
-struct SignInResponse: Codable{
+struct SignUpResponse: Codable{
     let accessToken: String
     let refreshToken: String
     let expiredAt: Date

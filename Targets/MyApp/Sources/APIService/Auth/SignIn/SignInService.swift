@@ -9,7 +9,7 @@ enum SignInService{
 
 extension SignInService: TargetType{
     public var baseURL: URL{
-        return URL(string: "http://glog-env.eba-pvh8srk2.ap-northeast-2.elasticbeanstalk.com")!
+        return URL(string: "https://api.glog.kro.kr")!
     }
     
     var path: String{
