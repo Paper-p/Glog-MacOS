@@ -10,7 +10,7 @@ enum SignInService{
 
 extension SignInService: TargetType{
     public var baseURL: URL{
-        return URL(string: "https://api.glog.kro.kr")!
+        return URL(string: PaperAPI.baseURL)!
     }
     
     var path: String{

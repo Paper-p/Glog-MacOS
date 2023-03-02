@@ -13,7 +13,8 @@ let project = Project.executable(
         .Alamofire,
         .Moya,
         .RxSwift,
-        .KeychainSwift
+        .KeychainSwift,
+        .RxFlow
     ],
     product: .app,
     deploymentTarget: .macOS(targetVersion: "12.3"),
@@ -23,6 +24,7 @@ let project = Project.executable(
         .SPM.Alamofire,
         .SPM.RxMoya,
         .SPM.RxSwift,
-        .SPM.KeychainSwift
+        .SPM.KeychainSwift,
+        .SPM.RxFlow
     ]
 )
