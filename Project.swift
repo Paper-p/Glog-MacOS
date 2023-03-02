@@ -6,7 +6,7 @@ let orginazationIden = "Paper-p.Paper-p"
 
 let project = Project.executable(
     name: projectName,
-    platform: .macOS,
+    platform: .iOS,
     packages: [
         .Then,
         .SnapKit,
@@ -17,7 +17,7 @@ let project = Project.executable(
         .RxFlow
     ],
     product: .app,
-    deploymentTarget: .macOS(targetVersion: "12.3"),
+    deploymentTarget: .iOS(targetVersion: "13.0", devices: [.iphone, .ipad]),
     dependencies: [
         .SPM.Then,
         .SPM.SnapKit,

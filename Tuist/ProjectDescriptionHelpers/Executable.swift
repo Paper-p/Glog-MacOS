@@ -6,7 +6,7 @@ extension Project{
         platform: Platform,
         packages: [Package] = [],
         product: Product = .app,
-        deploymentTarget: DeploymentTarget = .macOS(targetVersion: "12.3"),
+        deploymentTarget: DeploymentTarget = .iOS(targetVersion: "13.0", devices: [.iphone,.ipad]),
         dependencies: [TargetDependency]
     ) -> Project {
         return Project(
