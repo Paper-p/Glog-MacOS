@@ -4,6 +4,7 @@ import Moya
 
 enum SignInService{
     case signIn(param: SignInRequest)
+    case refresh(param: RefreshRequest)
 }
 
 extension SignInService: TargetType{
@@ -15,6 +16,8 @@ extension SignInService: TargetType{
         switch self {
         case .signIn:
             return "/auth/signin"
+        case .refresh:
+            return "/auth/"
         }
     }
     
@@ -22,6 +25,8 @@ extension SignInService: TargetType{
         switch self {
         case .signIn:
             return .post
+        case .refresh:
+            return .patch
         }
     }
     
@@ -31,8 +36,10 @@ extension SignInService: TargetType{
     
     var task: Task{
         switch self {
-        case .signIn(let param):
+        case let .signIn(param):
             return .requestJSONEncodable(param)
+        case .refresh:
+            return .requestPlain
         }
     }
     
