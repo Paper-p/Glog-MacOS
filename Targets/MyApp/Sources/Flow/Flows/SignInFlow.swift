@@ -24,17 +24,31 @@ class SignInFlow: Flow {
         case .introIsRequired:
             return self.coordinateToIntro()
         case .signInIsRequired:
-            return self.
+            return self.coordinateToSignIn()
         case .signUpIsRequired:
-            <#code#>
+            return self.coordinateToSignUp()
         case .mainIsRequired:
-            <#code#>
+            return .none
         }
     }
     
     private func coordinateToIntro() -> FlowContributors {
         let vm = IntroVM()
         let vc = IntroVC(vm)
+        self.rootViewController.setViewControllers([vc], animated: false)
+        return .one(flowContributor: .contribute(withNext: vc))
+    }
+    
+    private func coordinateToSignIn() -> FlowContributors {
+        let vm = SignInVM()
+        let vc = SignInVC(vm)
+        self.rootViewController.setViewControllers([vc], animated: false)
+        return .one(flowContributor: .contribute(withNext: vc))
+    }
+    
+    private func coordinateToSignUp() -> FlowContributors {
+        let vm = InsertIdVM()
+        let vc = InsertIdVC(vm)
         self.rootViewController.setViewControllers([vc], animated: false)
         return .one(flowContributor: .contribute(withNext: vc))
     }
