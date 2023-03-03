@@ -1,10 +1,15 @@
 
-import UIKit
 import Then
+import RxFlow
+import RxSwift
+import RxCocoa
 import SnapKit
 import Alamofire
+import UIKit
 
-final class SignInVC: BaseVC<SignInVM>{
+final class SignInVC: BaseVC<SignInVM>, Stepper{
+    
+    var steps = PublishRelay<Step>()
     
     private let mainLogoImageView = UIImageView(image: UIImage(named: "Paper_MainLogo")!)
     

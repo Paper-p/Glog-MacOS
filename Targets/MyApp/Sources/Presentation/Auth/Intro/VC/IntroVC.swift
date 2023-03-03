@@ -1,9 +1,14 @@
 import Then
+import RxFlow
+import RxSwift
+import RxCocoa
 import SnapKit
 import Alamofire
 import UIKit
 
-final class IntroVC: BaseVC<IntroVM> {
+final class IntroVC: BaseVC<IntroVM>,Stepper {
+    
+    var steps = PublishRelay<Step>()
     
     private let backGroundImageView = UIImageView(image: UIImage(named: "Paper_Background")!)
     

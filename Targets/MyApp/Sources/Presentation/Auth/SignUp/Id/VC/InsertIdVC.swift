@@ -1,11 +1,15 @@
 
-import UIKit
 import Then
+import RxFlow
+import RxSwift
+import RxCocoa
 import SnapKit
 import Alamofire
-import Foundation
+import UIKit
 
-final class InsertIdVC: BaseVC<InsertIdVM>{
+final class InsertIdVC: BaseVC<InsertIdVM>, Stepper{
+    
+    var steps = PublishRelay<Step>()
     
     private let mainLogoImageView = UIImageView(image: UIImage(named: "Paper_Smile")!)
     
