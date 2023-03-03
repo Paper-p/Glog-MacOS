@@ -24,6 +24,9 @@ final class SignInVC: BaseVC<SignInVM>{
     
     private let idTextField = UITextField().then{
         $0.placeholder = "아이디"
+        $0.attributedPlaceholder = NSAttributedString(string: "아이디를 입력해주세요.", attributes: [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20.0, weight: .medium), NSAttributedString.Key.foregroundColor : UIColor.gray.cgColor
+        ])
         $0.layer.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
         $0.textColor = UIColor.white
         $0.allowsEditingTextAttributes = true
@@ -32,6 +35,9 @@ final class SignInVC: BaseVC<SignInVM>{
     
     private let pwdTextField = UITextField().then{
         $0.placeholder = "비밀번호"
+        $0.attributedPlaceholder = NSAttributedString(string: "비밀번호를 입력해주세요.", attributes: [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20.0, weight: .medium), NSAttributedString.Key.foregroundColor : UIColor.gray.cgColor
+        ])
         $0.layer.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
         $0.textColor = UIColor.white
         $0.allowsEditingTextAttributes = true

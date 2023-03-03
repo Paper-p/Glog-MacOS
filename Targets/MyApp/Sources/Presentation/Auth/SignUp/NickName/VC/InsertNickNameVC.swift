@@ -1,68 +1,46 @@
 
+import UIKit
 import Then
 import SnapKit
 import Alamofire
+import Foundation
 
-final class InsertNickNameVC: NSViewController{
+final class InsertNickNameVC: BaseVC<InsertNicknameVM>{
     
-    private let mainLogoImageView = NSImageView(image: NSImage(named: "Paper_Smile")!).then{
-        $0.wantsLayer = true
-        $0.layer?.contentsGravity = .resizeAspect
+    private let mainLogoImageView = UIImageView(image: UIImage(named: "Paper_Smile")!)
+    
+    private let backButton = UIButton().then{
+        //image
+        $0.layer.backgroundColor = UIColor.white.cgColor
     }
     
-    private let backButton = NSButton().then{
-        $0.image = NSImage(systemSymbolName: "chevron.backward", accessibilityDescription: "back")
-        $0.bezelStyle = .recessed
-        $0.action = Selector(("backButtonDidTap"))
-        $0.layer?.backgroundColor = NSColor.white.cgColor
-    }
-    
-    private let idTextField = NSTextField().then{
-        $0.wantsLayer = true
-        $0.placeholderString = "사용할 닉네임 입력"
-        $0.placeholderAttributedString = NSAttributedString(string: "사용할 닉네임 입력", attributes: [
-            NSAttributedString.Key.font: NSFont.systemFont(ofSize: 20.0, weight: .medium), NSAttributedString.Key.foregroundColor : NSColor.gray.cgColor
+    private let idTextField = UITextField().then{
+        
+        $0.placeholder = "사용할 닉네임 입력"
+        $0.attributedPlaceholder = NSAttributedString(string: "사용할 닉네임 입력", attributes: [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20.0, weight: .medium), NSAttributedString.Key.foregroundColor : UIColor.gray.cgColor
         ])
-        $0.layer?.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
-    
-        $0.isBezeled = true
-        $0.bezelStyle = .squareBezel
-        $0.isBordered = false
-        
-        $0.textColor = NSColor.white
-        $0.isEditable = true
-        $0.isSelectable = true
-        
-        $0.allowsEditingTextAttributes = true
-        $0.lineBreakMode = .byTruncatingTail
-        $0.font = NSFont(name: "Helvetica", size: 20)
-        $0.focusRingType = .none
-        $0.usesSingleLineMode = false
+        $0.layer.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
+        $0.textColor = UIColor.white
+        $0.font = UIFont(name: "Helvetica", size: 20)
     }
     
-    private let doneButton = NSButton().then{
-        $0.wantsLayer = true
-        $0.layer?.cornerRadius = 10
-        $0.attributedTitle = NSAttributedString(string: "완료", attributes:[ NSAttributedString.Key.foregroundColor : NSColor.black.cgColor])
-        $0.font = NSFont(name: "Helvetica-Bold", size: 14)
-        $0.bezelStyle = .shadowlessSquare
-        $0.layer?.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
-        $0.action = Selector(("NextButtonDidTap"))
+    private let doneButton = UIButton().then{
+        $0.layer.cornerRadius = 10
+        $0.titleLabel?.text = "완료"
+        $0.titleLabel?.textColor = PaperPAsset.Colors.paperBackgroundColor.color
+        $0.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 14)!
+        $0.layer.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addView()
         setLayout()
-        view.layer?.backgroundColor = PaperPAsset.Colors.paperBackgroundColor.color.cgColor
+        view.layer.backgroundColor = PaperPAsset.Colors.paperBackgroundColor.color.cgColor
     }
     
-    override func loadView() {
-        self.view = NSView(frame: NSRect(x: 0, y: 0, width: 800, height: 610))
-        view.wantsLayer = true
-    }
-    
-    func addView(){
+    override func addView(){
         [mainLogoImageView,
          backButton,
          idTextField,
@@ -73,7 +51,7 @@ final class InsertNickNameVC: NSViewController{
         }
     }
     
-    func setLayout(){
+    override func setLayout(){
         mainLogoImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(30)
@@ -97,13 +75,5 @@ final class InsertNickNameVC: NSViewController{
             make.width.equalToSuperview().inset(15)
             make.height.equalTo(45)
         }
-    }
-    @objc func backButtonDidTap(){
-        let vc = IntroVC()
-        self.view.window?.contentViewController = vc
-    }
-    
-    @objc func NextButtonDidTap(){
-        
     }
 }
