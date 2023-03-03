@@ -1,109 +1,65 @@
 
+import UIKit
 import Then
 import SnapKit
 import Alamofire
 
-final class SignInVC: NSViewController{
+final class SignInVC: BaseVC<SignInVM>{
     
-    private let mainLogoImageView = NSImageView(image: NSImage(named: "Paper_MainLogo")!).then{
-        $0.wantsLayer = true
-        $0.layer?.contentsGravity = .resizeAspect
-    }
+    private let mainLogoImageView = UIImageView(image: UIImage(named: "Paper_MainLogo")!)
     
-    private let welcomeTextView = NSTextView().then{
-        $0.string = "다시 온걸 환영해요!"
-        $0.font = NSFont(name: "Helvetica-Bold", size: 14)
-        $0.textColor = NSColor.white
+    private let welcomeTextView = UITextView().then{
+        $0.text = "다시 온걸 환영해요!"
+        $0.font = UIFont(name: "Helvetica-Bold", size: 14)
+        $0.textColor = UIColor.white
         $0.backgroundColor = PaperPAsset.Colors.paperBackgroundColor.color
         $0.isEditable = false
         $0.isSelectable = false
     }
     
-    private let backButton = NSButton().then{
-        $0.image = NSImage(systemSymbolName: "chevron.backward", accessibilityDescription: "back")
-        $0.bezelStyle = .recessed
-        $0.action = Selector(("backButtonDidTap"))
-        $0.layer?.backgroundColor = NSColor.white.cgColor
+    private let backButton = UIButton().then{
+        //image
+        $0.layer.backgroundColor = UIColor.white.cgColor
     }
     
-    private let idTextField = NSTextField().then{
-        $0.wantsLayer = true
-        $0.placeholderString = "아이디"
-        $0.placeholderAttributedString = NSAttributedString(string: "아이디", attributes: [
-            NSAttributedString.Key.font: NSFont.systemFont(ofSize: 20.0, weight: .medium), NSAttributedString.Key.foregroundColor : NSColor.gray.cgColor
-        ])
-        $0.layer?.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
-    
-        $0.isBezeled = true
-        $0.bezelStyle = .squareBezel
-        $0.isBordered = false
-        
-        $0.textColor = NSColor.white
-        $0.isEditable = true
-        $0.isSelectable = true
-        
+    private let idTextField = UITextField().then{
+        $0.placeholder = "아이디"
+        $0.layer.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
+        $0.textColor = UIColor.white
         $0.allowsEditingTextAttributes = true
-        $0.lineBreakMode = .byTruncatingTail
-        $0.font = NSFont(name: "Helvetica", size: 20)
-        $0.focusRingType = .none
-        $0.usesSingleLineMode = false
+        $0.font = UIFont(name: "Helvetica", size: 20)
     }
     
-    private let pwdTextField = NSSecureTextField().then{
-        $0.wantsLayer = true
-        $0.placeholderString = "비밀번호"
-        $0.placeholderAttributedString = NSAttributedString(string: "비밀번호", attributes: [
-            NSAttributedString.Key.font: NSFont.systemFont(ofSize: 20.0, weight: .medium), NSAttributedString.Key.foregroundColor : NSColor.gray.cgColor
-        ])
-        $0.layer?.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
-    
-        $0.isBezeled = true
-        $0.bezelStyle = .squareBezel
-        $0.isBordered = false
-        
-        $0.textColor = NSColor.white
-        $0.isEditable = true
-        $0.isSelectable = true
-        
+    private let pwdTextField = UITextField().then{
+        $0.placeholder = "비밀번호"
+        $0.layer.backgroundColor = PaperPAsset.Colors.paperBlankColor.color.cgColor
+        $0.textColor = UIColor.white
         $0.allowsEditingTextAttributes = true
-        $0.lineBreakMode = .byTruncatingTail
-        $0.font = NSFont(name: "Helvetica", size: 20)
-        $0.focusRingType = .none
-        $0.usesSingleLineMode = false
+        $0.font = UIFont(name: "Helvetica", size: 20)
     }
     
-    private let signInButton = NSButton().then{
-        $0.wantsLayer = true
-        $0.layer?.cornerRadius = 10
-        $0.attributedTitle = NSAttributedString(string: "로그인", attributes:[ NSAttributedString.Key.foregroundColor : NSColor.black.cgColor])
-        $0.font = NSFont(name: "Helvetica-Bold", size: 14)
-        $0.bezelStyle = .shadowlessSquare
-        $0.layer?.backgroundColor = PaperPAsset.Colors.paperStartColor.color.cgColor
-        $0.action = Selector(("SignInButtonDidTap"))
+    private let signInButton = UIButton().then{
+        $0.layer.cornerRadius = 10
+        $0.titleLabel?.text = "로그인"
+        $0.titleLabel?.textColor = PaperPAsset.Colors.paperBackgroundColor.color
+        $0.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 14)!
+        $0.layer.backgroundColor = PaperPAsset.Colors.paperStartColor.color.cgColor
     }
     
-    private let forgotPwdButton = NSButton().then{
-        $0.wantsLayer = true
-        $0.attributedTitle = NSAttributedString(string: "비밀번호를 잊어 버리셨나요?", attributes:[ NSAttributedString.Key.foregroundColor : PaperPAsset.Colors.paperStartColor.color.cgColor])
-        $0.bezelStyle = .texturedSquare
-        $0.layer?.backgroundColor = PaperPAsset.Colors.paperBackgroundColor.color.cgColor
+    private let forgotPwdButton = UIButton().then{
+        $0.titleLabel?.text = "비밀번호를 잊어 버리셨나요"
+        $0.titleLabel?.textColor = PaperPAsset.Colors.paperBackgroundColor.color
+        $0.layer.backgroundColor = PaperPAsset.Colors.paperBackgroundColor.color.cgColor
     }
-    
-    private let viewModel = SignInVM()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addView()
         setLayout()
-        view.layer?.backgroundColor = PaperPAsset.Colors.paperBackgroundColor.color.cgColor
+        view.layer.backgroundColor = PaperPAsset.Colors.paperBackgroundColor.color.cgColor
     }
     
-    override func loadView() {
-        self.view = NSView(frame: NSRect(x: 0, y: 0, width: 800, height: 610))
-        view.wantsLayer = true
-    }
-    
-    func addView(){
+    override func addView(){
         [mainLogoImageView,
          welcomeTextView,
          backButton,
@@ -117,7 +73,7 @@ final class SignInVC: NSViewController{
         }
     }
     
-    func setLayout(){
+    override func setLayout(){
         mainLogoImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(30)
